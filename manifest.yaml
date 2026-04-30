@@ -1,0 +1,40 @@
+# build-loop install manifest.
+#
+# Describes where each canonical file lands in a target project. Consumed by
+# the meta hub `bundle` CLI.
+#
+# Install into a promoted feature worktree (e.g. `.worktrees/roadmap-1-foo/`)
+# or the main checkout — the scripts find their own .git root and operate
+# relative to it. The selector and review gate assume one feature per
+# checkout.
+name: build-loop
+version: 0.1.0
+description: >
+  Reusable build-loop bundle for promoted feature worktrees. Deterministic
+  selector, build-next-action skill, implementer + adversarial-reviewer
+  agent roles, and a process doc. Adversarial review is a mandatory gate
+  before any "ready for user" signal fires.
+
+requires:
+  - .git/
+
+files:
+  - source: scripts/select-build-action.sh
+    target: scripts/build-loop/select-build-action.sh
+    mode: "0755"
+  - source: scripts/check-ready.sh
+    target: scripts/build-loop/check-ready.sh
+    mode: "0755"
+  - source: scripts/commit-build-action.sh
+    target: scripts/build-loop/commit-build-action.sh
+    mode: "0755"
+
+  - source: claude/agents/implementer.md
+    target: .claude/agents/implementer.md
+  - source: claude/agents/adversarial-reviewer.md
+    target: .claude/agents/adversarial-reviewer.md
+  - source: claude/skills/build-next-action/SKILL.md
+    target: .claude/skills/build-next-action/SKILL.md
+
+  - source: docs/working-through-a-build.md
+    target: docs/working-through-a-build.md
