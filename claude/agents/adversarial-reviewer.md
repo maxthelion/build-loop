@@ -1,5 +1,5 @@
 ---
-name: adversarial-reviewer
+name: build-adversarial-reviewer
 description: Build-loop adversarial reviewer. Reads the diff between the current HEAD and the parent of the build branch, then writes concrete findings into .claude/state/review-queue/. The signal-ready gate cannot fire until this agent has produced a clean review against HEAD. Uses Sonnet.
 tools: Read, Glob, Grep, Bash
 model: sonnet

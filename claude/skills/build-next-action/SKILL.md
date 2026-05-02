@@ -1,6 +1,6 @@
 ---
 name: build-next-action
-description: Run one iteration of the build behaviour-tree loop in a promoted feature worktree. Refreshes the deterministic selector, dispatches one action via implementer or adversarial-reviewer subagents, and exits. Pair with /loop for an autonomous build heartbeat.
+description: Run one iteration of the build behaviour-tree loop in a promoted feature worktree. Refreshes the deterministic selector, dispatches one action via build-implementer or build-adversarial-reviewer subagents, and exits. Pair with /loop for an autonomous build heartbeat.
 ---
 
 # Build Next Action
@@ -69,8 +69,8 @@ is a gate, not just a verb**: nothing reaches `signal-ready` until
 
    | Action | Agent |
    |---|---|
-   | `fix-tests`, `address-critique`, `continue-partial-work`, `execute-work-item`, `handle-inbox`, `select-work-item` | `implementer` |
-   | `adversarial-review` | `adversarial-reviewer` |
+   | `fix-tests`, `address-critique`, `continue-partial-work`, `execute-work-item`, `handle-inbox`, `select-work-item` | `build-implementer` |
+   | `adversarial-review` | `build-adversarial-reviewer` |
 
    The brief must be self-contained: include the action verb, reason,
    hint, and input from `next-action.md`. Tell the agent to follow its
@@ -115,7 +115,7 @@ is a gate, not just a verb**: nothing reaches `signal-ready` until
 - **One action per invocation.** No chaining. Next loop iteration
   picks the next item.
 - **`last-review-sha` cannot be set without a clean review.** The
-  adversarial-reviewer agent is the only thing that updates it.
+  build-adversarial-reviewer agent is the only thing that updates it.
 - **Surface, don't improvise.** When the agent's contract doesn't
   cover a situation, write into `inbox/` with `status: question` and
   stop.
@@ -138,6 +138,6 @@ Keep it tight. The diff is the source of truth.
 - `scripts/build-loop/select-build-action.sh` — selector
 - `scripts/build-loop/commit-build-action.sh` — narrow commit helper
 - `scripts/build-loop/check-ready.sh` — yes/no signal for the meta hub
-- `.claude/agents/implementer.md` — code-writing sub-agent
-- `.claude/agents/adversarial-reviewer.md` — review sub-agent
+- `.claude/agents/build-implementer.md` — code-writing sub-agent
+- `.claude/agents/build-adversarial-reviewer.md` — review sub-agent
 - `/pm-next-action` — the planning-loop counterpart

@@ -24,8 +24,8 @@ critiques never destabilise the planning side.
    verb into `.claude/state/next-action.md`.
 
 2. The `/build-next-action` skill reads that file, dispatches the
-   right subagent (`implementer` for work verbs,
-   `adversarial-reviewer` for review), takes the result, commits via
+   right subagent (`build-implementer` for work verbs,
+   `build-adversarial-reviewer` for review), takes the result, commits via
    `commit-build-action.sh`, and exits.
 
 3. Under `/loop`, this repeats until the selector emits
@@ -157,7 +157,7 @@ These are exactly the things a tired human will miss when they're
 glancing at a worktree to "see if it's done." The review gate makes
 the loop conservative on the user's behalf.
 
-The reviewer's contract is in `.claude/agents/adversarial-reviewer.md`.
+The reviewer's contract is in `.claude/agents/build-adversarial-reviewer.md`.
 
 ## Surfacing readiness to humans
 

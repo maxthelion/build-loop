@@ -1,5 +1,5 @@
 ---
-name: implementer
+name: build-implementer
 description: Build-loop implementer. Executes one narrowly-scoped action verb from .claude/state/next-action.md against the current promoted feature worktree. Edits production code, tests, and state files only as the action verb permits. Does not edit roadmap PM artifacts. Uses Sonnet for product judgment.
 tools: Read, Write, Edit, Glob, Grep, Bash
 model: sonnet

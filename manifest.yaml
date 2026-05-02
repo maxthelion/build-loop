@@ -30,9 +30,9 @@ files:
     mode: "0755"
 
   - source: claude/agents/implementer.md
-    target: .claude/agents/implementer.md
+    target: .claude/agents/build-implementer.md
   - source: claude/agents/adversarial-reviewer.md
-    target: .claude/agents/adversarial-reviewer.md
+    target: .claude/agents/build-adversarial-reviewer.md
   - source: claude/skills/build-next-action/SKILL.md
     target: .claude/skills/build-next-action/SKILL.md
 

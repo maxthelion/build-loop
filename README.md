@@ -11,8 +11,8 @@ PM-loop features into separate implementation worktrees. Sits between
   per wakeup from a fixed priority order.
 - A **`build-next-action` skill** that reads the selector output,
   dispatches the right sub-agent, and exits.
-- Two sub-agents — **`implementer`** (writes code) and
-  **`adversarial-reviewer`** (reads diffs).
+- Two sub-agents — **`build-implementer`** (writes code) and
+  **`build-adversarial-reviewer`** (reads diffs).
 - A **mandatory adversarial-review gate**: nothing reaches
   `signal-ready` until `last-review-sha == HEAD`. The user is never
   told a feature is ready while the latest commit has only been seen
@@ -92,7 +92,7 @@ Exits 0 if all gates clean and HEAD has been reviewed.
 │   ├── select-build-action.sh
 │   ├── check-ready.sh
 │   └── commit-build-action.sh
-├── .claude/agents/{implementer,adversarial-reviewer}.md
+├── .claude/agents/{build-implementer,build-adversarial-reviewer}.md
 ├── .claude/skills/build-next-action/SKILL.md
 ├── .claude/state/                          # owned by the loop
 │   ├── next-action.md
