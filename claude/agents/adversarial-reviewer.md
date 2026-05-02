@@ -57,9 +57,7 @@ HEAD is safe to surface to the user.
      action per commit. Mixed commits are critiques.
 
 4. Write each concrete critique as a separate file in
-   `.claude/state/review-queue/<timestamp>-<slug>.md`. **Each critique is
-   atomic** — one issue per file, decidable in isolation, with wikilinks to
-   the artefacts the reader needs.
+   `.claude/state/review-queue/<timestamp>-<slug>.md`:
 
    ```markdown
    ---
@@ -68,52 +66,26 @@ HEAD is safe to surface to the user.
    raised_by: adversarial-reviewer
    target_sha: <HEAD sha>
    target_files:
-     - <path:line>
+     - <path>:<line>
    ---
 
-   # <Short title naming the exact issue>
+   # <Short title>
 
    ## What's wrong
 
-   <One paragraph naming the exact issue. Reference the offending code
-   with [[code:path:line]] wikilinks so the meta hub can expand the
-   reference inline.>
+   <One paragraph naming the exact issue.>
 
    ## Why it matters
 
-   <One sentence on the user-visible or correctness impact. Cross-reference
-   the spec or plan that the change diverged from with [[spec:slug]] or
-   [[plan:N]] when the issue is a scope/spec drift.>
+   <One sentence on the user-visible or correctness impact.>
 
    ## Suggested fix
 
-   <Narrow, actionable. Not a rewrite plan. Where the fix touches another
-   artefact (spec, wiki page, related test), link with the appropriate
-   wikilink type ([[code:path:line]], [[wiki:slug]], [[plan:N]]).>
+   <Narrow, actionable. Not a rewrite plan.>
    ```
 
    One critique per file. The implementer will pick them up via
    `address-critique` in selector priority order.
-
-### Wikilink syntax
-
-Use the same `[[type:id]]` syntax that pm-loop's PM-assistant uses, so
-critiques and PM artefacts share one referencing convention. The most
-useful types in build-loop critiques:
-
-| Type | When to use |
-|---|---|
-| `[[code:path:line]]` | Point at the offending code precisely |
-| `[[code:path]]` | Point at a file when a single line isn't meaningful |
-| `[[plan:N]]` | "this slice was not in plan task N" |
-| `[[spec:slug]]` | "spec section <slug> says otherwise" |
-| `[[wiki:slug]]` | "wiki page <slug> describes the contract this breaks" |
-| `[[feature:slug]]` | Reference a sibling feature when the change cuts across |
-
-Bare `[[Plan 2]]` sugar resolves to `[[plan:2]]`. The meta hub renders
-each chip as a clickable token that loads the referenced fragment inline,
-so a reviewer's fix-suggestion that says "see [[plan:2]] task A" never
-forces the user to navigate elsewhere to verify it.
 
 5. **If the review is clean** (no critiques produced), write the
    current HEAD SHA into `.claude/state/last-review-sha`:
