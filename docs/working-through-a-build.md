@@ -112,6 +112,15 @@ commits only the state change. The next wakeup will pick it up via
 only when no critiques are produced — updates `last-review-sha` to
 the current HEAD. The reviewer cannot edit production code.
 
+Each critique is **atomic**: one issue per file in
+`review-queue/<timestamp>-<slug>.md`, with frontmatter (status, created,
+raised_by, target_sha, target_files) plus a body of "What's wrong / Why
+it matters / Suggested fix". Critiques use the same `[[type:id]]`
+wikilink syntax as PM artefacts — `[[code:path:line]]`, `[[plan:N]]`,
+`[[spec:slug]]`, `[[wiki:slug]]`, `[[feature:slug]]` — so the meta hub
+renders each cross-reference as an expandable chip. The full reviewer
+contract is in `.claude/agents/adversarial-reviewer.md`.
+
 This action will fire repeatedly as new commits land. Until it fires
 on a clean diff, `signal-ready` cannot.
 
